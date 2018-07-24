@@ -25,8 +25,6 @@ class Search extends React.Component {
     this.searchBook();
   }
 
-
-
     render() {
       console.log(this.state.searchBooks)
       return (
@@ -41,10 +39,15 @@ class Search extends React.Component {
                   value={this.state.query} 
                   onChange={this.handleQueryChange}
                 />
+
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
+              
+              {this.state.books.filter(book => { return book.shelf === "read" }).map((book, index) =>
+                        <Book book={book} key={index} updateShelf={this.updateShelf} />
+                        )}
                   
               </ol>
             </div>
