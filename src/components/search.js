@@ -1,6 +1,6 @@
 import React from 'react';
 import Book from './book';
-import {search, update, getAll } from '../BooksAPI';
+import {search, update } from '../BooksAPI';
 import { Link } from 'react-router-dom';
 
 
@@ -11,8 +11,14 @@ class Search extends React.Component {
   }
   
   searchBook = () =>  {
+    if (this.state.query.length < 2) {
+      this.setState({
+        searchBooks: []
+      })
+      return
+    }
     search(this.state.query).then((res) => {
-      if(res) {
+      if(res){
         this.setState({
           searchBooks: res
         })
@@ -55,7 +61,7 @@ class Search extends React.Component {
                   this.state.searchBooks.map((book, i) => (
                   book.authors && book.imageLinks && book.title && <Book book={book} key={i} updateShelf={this.updateShelf} />
                   ))
-                ) : <div/>}
+                ) :  <div/>  }
               </ol>
             </div>
           </div>
