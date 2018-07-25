@@ -1,6 +1,6 @@
 import React from 'react';
 import Book from './book';
-import {search, update } from '../BooksAPI';
+import {search, update, getAll } from '../BooksAPI';
 import { Link } from 'react-router-dom';
 
 
@@ -21,9 +21,16 @@ class Search extends React.Component {
   }
 
   handleQueryChange = (event) => {
-    this.setState({ query: event.target.value });
-    this.searchBook();
+    this.setState({ query: event.target.value }, this.searchBook);
   }
+
+
+  updateShelf = (book, target) => {
+    update(book, target.value).then(() => {
+      alert(`"${book.title}" added to ${target.options[target.selectedIndex].text}`);
+    });
+  }
+  
 
     render() {
       console.log(this.state.searchBooks)
@@ -43,12 +50,12 @@ class Search extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid">
-              
-              {this.state.books.filter(book => { return book.shelf === "read" }).map((book, index) =>
-                        <Book book={book} key={index} updateShelf={this.updateShelf} />
-                        )}
-                  
+            <ol className="books-grid">
+                {this.state.searchBooks.length > 0 ? (
+                  this.state.searchBooks.map((book, i) => (
+                  book.authors && book.imageLinks && book.title && <Book book={book} key={i} updateShelf={this.updateShelf} />
+                  ))
+                ) : <div/>}
               </ol>
             </div>
           </div>
