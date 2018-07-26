@@ -2,12 +2,13 @@ import React from 'react';
 
 const Book = (props) => {
   return (
-    <li>
+    <li id={props.book.id}>
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url('${props.book.imageLinks.thumbnail}')`}}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url('${props.book.imageLinks.thumbnail}')` }}></div>
           <div className="book-shelf-changer">
-            <select  value={props.book.shelf || "none"} onChange={event => { props.updateShelf( props.book, event.target )}} >
+            <select onChange={event => { props.updateShelf(props.book, event.target) }}
+              value={props.book.shelf || "none"} >
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
