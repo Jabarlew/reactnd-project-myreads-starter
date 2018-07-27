@@ -22,25 +22,13 @@ class Search extends React.Component {
         return
       }
 
-      // const books = books.map(book => (
-      //   const comparedBook = books2.find(b => b.id === book.id);
-      
-      //   return {
-      //     ...book,
-      //     image: comparedBook ? comparedBook.image : null
-      //   }
-      // });
 
-      const shelfBooks = this.props.myBooks.map((shelfBook) => {
-        const bookInSearch = res.find((bookInSearch) => {
-          if (shelfBook.id === bookInSearch.id) {
-            bookInSearch.shelf = shelfBook.shelf
-            console.log(bookInSearch)
-          } else {
-            bookInSearch.shelf = 'none'
-          }
-        })
-      })
+    res.forEach((book, index) => {
+      let i = this.props.myBooks.findIndex(myBook => myBook.id === book.id)
+      if(i >= 0) {
+        res.splice(index, 1, this.props.myBooks[i]);
+      }
+    });
 
       // const shelfBooks = this.props.myBooks.reduce((map, book) => {
       //   map[book.id] = book.shelf
