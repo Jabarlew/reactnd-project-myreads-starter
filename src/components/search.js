@@ -22,7 +22,6 @@ class Search extends React.Component {
         return
       }
 
-
     res.forEach((book, index) => {
       let i = this.props.myBooks.findIndex(myBook => myBook.id === book.id)
       if(i >= 0) {
@@ -58,7 +57,7 @@ class Search extends React.Component {
 
   updateShelf = (book, target) => {
     update(book, target.value).then(() => {
-      alert(`"${book.title}" added to ${target.options[target.selectedIndex].text}`);
+      this.props.getBooks();
     });
   }
 

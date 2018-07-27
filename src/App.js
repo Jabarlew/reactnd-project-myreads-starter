@@ -23,9 +23,7 @@ class BooksApp extends React.Component {
       });
     });
   }
-
-
-  
+ 
   componentDidMount = () => {
     this.getBooks();
     console.log(this.props.myBooks)
@@ -41,7 +39,7 @@ class BooksApp extends React.Component {
             )} exact />
 
             <Route path="/search" render={() => (
-              <Search myBooks={this.state.books} />
+              <Search myBooks={this.state.books} getBooks={this.getBooks} />
             )} />
           </div>
         </ BrowserRouter>
